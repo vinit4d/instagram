@@ -158,13 +158,18 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                        height: ThemeConfig.dimens.width / 1.2,
-                        width: ThemeConfig.dimens.width,
-                        child: Image.network(
-                          data.postImg!,
-                          fit: BoxFit.cover,
-                        )),
+                    InkWell(
+                      onDoubleTap: () {
+                        ctrl.updateLike(index);
+                      },
+                      child: SizedBox(
+                          height: ThemeConfig.dimens.width / 1.2,
+                          width: ThemeConfig.dimens.width,
+                          child: Image.network(
+                            data.postImg!,
+                            fit: BoxFit.cover,
+                          )),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -278,11 +283,14 @@ class HomeScreen extends StatelessWidget {
                             ]),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: Text(
-                          "View all ${ctrl.posts[index].comments != null ? ctrl.posts[index].comments!.length : "10"} comments"),
+                    InkWell(
+                      onTap: () => commentSection(context, data, ctrl, index),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: Text(
+                            "View all ${ctrl.posts[index].comments != null ? ctrl.posts[index].comments!.length : "10"} comments"),
+                      ),
                     )
                   ],
                 );
@@ -312,9 +320,6 @@ commentSection(BuildContext context, HomeScreenModel data, HomeController ctrl,
                       width: 40,
                       child: Divider(height: 1, thickness: 3),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
